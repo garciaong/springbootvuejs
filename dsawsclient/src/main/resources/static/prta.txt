@@ -1,0 +1,17 @@
+{ 
+	"quotation_date" : "2018-10-01", 
+	"year" : "2018", 
+	"language" : "E", 
+	"birth_date" : "1990-10-01", 
+	"gender" : "M", 
+	"smoker_indicator" : "N", 
+	"staff_indicator" : "C", 
+	"occ" : "1", 
+	"loan_amount" : "150000", 
+	"loan_period" : "20", 
+	"cover_period" : "15", 
+	"current_blr" : "35.0", 
+	"financing" : "N", 
+	"servicing" : "5", 
+	"stamp_duty_indicator" : "N" 
+}

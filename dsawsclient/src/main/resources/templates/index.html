@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thyemleaf.org">
+<head>
+	<title th:text="${page}"></title>
+	<!--script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script-->
+	<script src="../vue.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+<body>
+	<div id="main">
+	<article>
+		<div class="col-sm-12">
+			<h4>DSA RESTful Web Services Post Endpoint Client</h4>
+		</div>
+		<div class="col-sm-4">
+ 			<label>
+ 			Please choose the endpoint from downdown for verification
+ 			</label>
+ 		</div>
+ 		<div class="col-sm-2">
+  			<select class="form-control" v-model="endpointurl">
+  				<option v-for="option in options" v-bind:value="option.url">
+    				{{ option.name }}
+  				</option>
+  			</select>
+  		</div>
+  		<div class="col-sm-6">
+  			<button class="btn btn-primary" v-on:click="invokeEndpoint">Test</button>
+  		</div>
+	</article>
+		<div class="col-sm-8">
+		<div class="form-group">
+			<label></label>
+			<textarea class="form-control" rows="20">{{content}}</textarea>
+		</div>
+		</div>
+		<div class="col-sm-4"></div>
+	</div>
+	
+	<script type="text/javascript">
+	
+    var app = new Vue({
+        el: '#main',
+		data: {
+			content : '[Endpoint response will be shown here...]', 
+			endpointurl : '' ,
+			options: [
+				//{ text: 'PRTA', value: 'http://localhost:9090/endpoint/prta' },
+			    //{ text: 'PRTT', value: 'http://localhost:9090/endpoint/prtt' }
+			]
+		},
+		methods: {
+   			invokeEndpoint: function (event) {
+				if(this.endpointurl != null && this.endpointurl != ''){
+					axios
+			    	.get(this.endpointurl)
+			    	.then(response => (this.content = response.data))
+			    	.catch(error => console.log(error));
+   				}else{
+   					this.content = '[Please select one endpoint to proceed!]';
+   				}
+			},
+			setoptions: function (){
+				axios
+		    	.get("http://localhost:[[${port}]]/endpoint/options")
+		    	.then(response => (this.options = response.data.endpoint))
+		    	.catch(error => console.log(error));
+			}
+		},
+		beforeMount() {
+			this.setoptions();
+		}
+    });
+	</script>
+</body>
+</html>
